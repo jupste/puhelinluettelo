@@ -19,7 +19,11 @@ class PhoneNumberController @Inject()(val controllerComponents: ControllerCompon
       phoneNumber => phoneNumberRepo.insert(phoneNumber).map(_ => Created(Json.toJson(phoneNumber)))
     )
   }
-
+  def listPhoneNumbers: Action[AnyContent] = Action.async {
+    phoneNumberRepo.list().map { phoneNumbers =>
+      Ok(Json.toJson(phoneNumbers))  // Convert the result to JSON
+    }
+  }
   def deletePhoneNumber(phonenumber: String): Action[AnyContent] = Action.async {
     phoneNumberRepo.delete(phonenumber).map(_ => Ok(Json.obj("message" -> s"Phone number $phonenumber deleted")))
   }

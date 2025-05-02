@@ -31,7 +31,10 @@ class ContactRepository @Inject()(dbConfigProvider: DatabaseConfigProvider)(impl
     }
   }
 
-
+  def listContacts(): Future[Seq[Contact]] = {
+    db.run(contacts.result)
+  }
+  
   def insert(contact: Contact): Future[Unit] = {
     val query = contacts += contact
     db.run(query).map(_ => ())

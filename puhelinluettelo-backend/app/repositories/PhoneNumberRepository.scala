@@ -14,7 +14,8 @@ class PhoneNumberRepository @Inject()(dbConfigProvider: DatabaseConfigProvider)(
   import profile.api._
 
   private val phoneNumbers = TableQuery[PhoneNumberTable]
-
+  def list(): Future[Seq[PhoneNumber]] = db.run(phoneNumbers.result)
+  
   def insert(phoneNumber: PhoneNumber): Future[Unit] = db.run(phoneNumbers += phoneNumber).map(_ => ())
 
   def delete(phonenumber: String): Future[Unit] = db.run(phoneNumbers.filter(_.phonenumber === phonenumber).delete).map(_ => ())

@@ -28,6 +28,12 @@ class ContactController @Inject()(cc: ControllerComponents, contactRepo: Contact
       Ok(Json.toJson(contacts))  // Convert the result to JSON
     }
   }
+
+  def listContacts = Action.async {
+    contactRepo.listContacts().map { contacts =>
+      Ok(Json.toJson(contacts))  // Convert the result to JSON
+    }
+  }
 def createContact = Action.async(parse.json) { request =>
   request.body.validate[CreateContact].fold(
     errors => Future.successful(BadRequest(Json.obj("message" -> "Invalid contact data", "errors" -> JsError.toJson(errors)))),

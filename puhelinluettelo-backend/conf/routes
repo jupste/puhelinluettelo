@@ -8,10 +8,14 @@ GET     /                           controllers.HomeController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 # Contacts routes
-GET     /contacts            controllers.ContactController.listContactsWithPhoneNumbers
-POST    /contacts            controllers.ContactController.createContact
+GET     /contacts/list        controllers.ContactController.listContactsWithPhoneNumbers
+POST    /contacts             controllers.ContactController.createContact
 DELETE  /contacts/:id         controllers.ContactController.deleteContact(id: Long)
-
+GET     /contacts             controllers.ContactController.listContacts
 # Phonenumbers routes
 POST    /phonenumbers         controllers.PhoneNumberController.createPhoneNumber
+GET    /phonenumbers         controllers.PhoneNumberController.listPhoneNumbers
 DELETE  /phonenumbers/:phonenumber controllers.PhoneNumberController.deletePhoneNumber(phonenumber: String)
+
+# Countries routes
+GET     /countries             controllers.CountriesController.getCountryDisplayList
