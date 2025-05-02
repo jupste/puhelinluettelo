@@ -14,6 +14,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.play" %% "play-slick" % "5.0.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "5.0.0"
 )
+libraryDependencies += "org.postgresql" % "postgresql" % "42.7.3"
 
 dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
 // Adds additional packages into Twirl

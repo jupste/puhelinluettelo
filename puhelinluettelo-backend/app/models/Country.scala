@@ -1,3 +1,3 @@
 package models
 
-case class Country(id: Long, code: String, name: String)
+case class Country(country_code: String, country_name: String)

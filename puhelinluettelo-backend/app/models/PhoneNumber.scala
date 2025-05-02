@@ -1,3 +1,3 @@
 package models
 
-case class PhoneNumber(id: Long, userId: Long, phonenumber: String, countryCode: Long)
+case class PhoneNumber(userId: Long, phonenumber: String, countryCode: String)

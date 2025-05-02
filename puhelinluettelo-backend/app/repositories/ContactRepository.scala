@@ -16,30 +16,28 @@ class ContactRepository @Inject()(dbConfigProvider: DatabaseConfigProvider)(impl
   private val phoneNumbers = TableQuery[PhoneNumberTable]
   private val countries = TableQuery[CountryTable]
 
-  // List all contacts with their phone numbers and country codes
-  def listContactsWithPhoneNumbers(): Future[Seq[(Contact, Seq[(PhoneNumber, Country)])]] = {
+  // List all contacts with their phone numbers and country codes{
+  def listContactsWithPhoneNumbers(): Future[Seq[(Contact, Seq[PhoneNumber])]] = {
     val query = for {
-      (contact, phoneNumber) <- contacts joinLeft phoneNumbers on (_.id === phoneNumber.userId)
-      country <- countries if phoneNumber.map(_.countryCode).contains(country.id)
-    } yield (contact, phoneNumber, country)
+      (contact, phoneNumberOpt) <- contacts joinLeft phoneNumbers on (_.id === _.userId)
+    } yield (contact, phoneNumberOpt)
 
     db.run(query.result).map { result =>
       result.groupBy(_._1).map {
-        case (contact, contactWithPhones) =>
-          (contact, contactWithPhones.flatMap {
-            case (phoneNumber, country) =>
-              phoneNumber.map(pn => (pn, country))
-          })
+        case (contact, groupedRows) =>
+          val phoneNumbers = groupedRows.flatMap(_._2)
+          (contact, phoneNumbers)
       }.toSeq
     }
   }
 
+
   def insert(contact: Contact): Future[Unit] = {
     val query = contacts += contact
     db.run(query).map(_ => ())
+  }
   
   def delete(id: Long): Future[Unit] = {
     db.run(contacts.filter(_.id === id).delete).map(_ => ())
   }
-}
 }

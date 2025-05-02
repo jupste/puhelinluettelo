@@ -4,9 +4,8 @@ import slick.jdbc.PostgresProfile.api._
 import slick.lifted.Tag
 
 class CountryTable(tag: Tag) extends Table[Country](tag, "country") {
-  def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-  def code = column[String]("code")
-  def name = column[String]("name")
+  def code = column[String]("country_code", O.PrimaryKey)
+  def name = column[String]("country_name")
 
-  def * = (id, code, name) <> (Country.tupled, Country.unapply)
+  def * = (code, name) <> (Country.tupled, Country.unapply)
 }

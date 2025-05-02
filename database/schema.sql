@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS country_code (
 
 -- Create the personal_data table
 CREATE TABLE IF NOT EXISTS personal_data (
-    id SERIAL PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
     last_name VARCHAR(100) NOT NULL
 );
