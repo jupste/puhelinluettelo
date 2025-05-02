@@ -1,0 +1,17 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# https://www.playframework.com/documentation/latest/ScalaRouting
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Contacts routes
+GET     /contacts            controllers.ContactController.listContactsWithPhoneNumbers
+POST    /contacts            controllers.ContactController.createContact
+DELETE  /contacts/:id         controllers.ContactController.deleteContact(id: Long)
+
+# Phonenumbers routes
+POST    /phonenumbers         controllers.PhoneNumberController.createPhoneNumber
+DELETE  /phonenumbers/:phonenumber controllers.PhoneNumberController.deletePhoneNumber(phonenumber: String)
