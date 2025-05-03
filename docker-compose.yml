@@ -19,6 +19,34 @@ services:
     networks:
       - mynetwork
 
+  backend:
+    build:
+      context: ./puhelinluettelo-backend
+      dockerfile: Dockerfile
+    container_name: puhelinluettelo_backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/mydatabase
+      DATABASE_USER: myuser
+      DATABASE_PASSWORD: mypassword
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./puhelinluettelo-frontend
+      dockerfile: Dockerfile
+    container_name: puhelinluettelo_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
 networks:
   mynetwork:
     driver: bridge
