@@ -45,15 +45,12 @@ The database is powered by PostgreSQL, a powerful, open-source object-relational
 1. **Clone the Repository**:
    ```sh
    git clone https://github.com/yourusername/puhelinluettelo.git
-   cd puhelinluettelo
-
-
+   cd puhelinluettelo 
 2. **Build and Run the Application:**
-'''
-Copy
+```sh
 docker-compose up --build
-Access the Application:
-'''
+```
+3 **Access the Application:**
 - Frontend: http://localhost
 - Backend: http://localhost:9000
 - Database: Connect to localhost:5433 using a PostgreSQL client.
